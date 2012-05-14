@@ -1,4 +1,4 @@
-package jp.arancia.taketo.regexChecker;
+package take.myUtility.regexChecker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

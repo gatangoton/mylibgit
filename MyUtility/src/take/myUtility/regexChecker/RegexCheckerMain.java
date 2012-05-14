@@ -1,4 +1,4 @@
-package jp.arancia.taketo.regexChecker;
+package take.myUtility.regexChecker;
 
 public class RegexCheckerMain {
 
