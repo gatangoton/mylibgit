@@ -42,10 +42,12 @@ public class Practice {
 			p = pb.start();
 
 		InputStream in = p.getInputStream();
+		//InputStream in2 = p.getErrorStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String s;
 		while((s=br.readLine()) != null){
 			System.out.println(s);
+			//while (in2.read() != -1){}
 		}
 
 		}catch(IOException e){
