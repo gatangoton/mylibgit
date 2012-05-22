@@ -11,6 +11,7 @@ public class Practice2 {
 	public static void main(String[] args) {
 		new ReadBin();
 
+		System.out.println("test");
 
 	}
 
