@@ -10,8 +10,8 @@ public class Practice2 {
 	 */
 	public static void main(String[] args) {
 		new ReadBin();
-		/*test*/
-		System.out.println();
+
+		System.out.println("test");
 
 	}
 
