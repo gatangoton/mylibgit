@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -13,14 +14,16 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
+@SuppressWarnings("serial")
 public class Grib2MainFrame extends JFrame {
 	private Grib2MainController mc;
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextPane textPane;
-	private JTextPane textPane_1;
+	private JTextField txtCcygwinhometaketotemptestgribbin;
+	private JScrollPane scrollPane;
+	JTextArea textArea;
 
 
 	/**
@@ -37,43 +40,42 @@ public class Grib2MainFrame extends JFrame {
 		SpringLayout sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
 
-		textField = new JTextField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, textField, 24, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, textField, 91, SpringLayout.WEST, contentPane);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtCcygwinhometaketotemptestgribbin = new JTextField();
+		txtCcygwinhometaketotemptestgribbin.setText("C:\\cygwin\\home\\taketo\\temp\\test_grib2.bin");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, txtCcygwinhometaketotemptestgribbin, 24, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, txtCcygwinhometaketotemptestgribbin, 91, SpringLayout.WEST, contentPane);
+		contentPane.add(txtCcygwinhometaketotemptestgribbin);
+		txtCcygwinhometaketotemptestgribbin.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("file name");
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 27, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 3, SpringLayout.NORTH, textField);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel, -17, SpringLayout.WEST, textField);
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 5, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 3, SpringLayout.NORTH, txtCcygwinhometaketotemptestgribbin);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel, -17, SpringLayout.WEST, txtCcygwinhometaketotemptestgribbin);
 		contentPane.add(lblNewLabel);
 
-		textPane = new JTextPane();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, textPane, 100, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, textPane, 10, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, textPane, -10, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, textPane, 500, SpringLayout.WEST, contentPane);
-		contentPane.add(textPane);
-
 		JButton btnNewButton = new JButton("New button");
-		sl_contentPane.putConstraint(SpringLayout.EAST, textField, -6, SpringLayout.WEST, btnNewButton);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton, -1, SpringLayout.NORTH, textField);
+		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton, -10, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, txtCcygwinhometaketotemptestgribbin, -6, SpringLayout.WEST, btnNewButton);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton, -1, SpringLayout.NORTH, txtCcygwinhometaketotemptestgribbin);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("読み込み");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton_1, 10, SpringLayout.SOUTH, txtCcygwinhometaketotemptestgribbin);
 		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton_1, 291, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -17, SpringLayout.NORTH, textPane);
 		btnNewButton_1.addActionListener(mc);
 		contentPane.add(btnNewButton_1);
 
-		textPane_1 = new JTextPane();
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, textPane_1);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, textPane_1, 100, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, textPane_1, 5, SpringLayout.EAST, textPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, textPane_1, -10, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, textPane_1, -10, SpringLayout.EAST, contentPane);
-		contentPane.add(textPane_1);
+		scrollPane = new JScrollPane();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, scrollPane, 100, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, scrollPane, 20, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, scrollPane, -20, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, scrollPane, -20, SpringLayout.EAST, contentPane);
+		contentPane.add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+
+
 	}
 
 	public void setMc(Grib2MainController mc) {
@@ -84,12 +86,13 @@ public class Grib2MainFrame extends JFrame {
 		return getTextField().getText();
 	}
 	public JTextField getTextField() {
-		return textField;
+		return txtCcygwinhometaketotemptestgribbin;
 	}
-	public JTextPane getTextPane() {
-		return textPane;
+	/**
+	 * @return
+	 */
+	public JTextArea getTextArea() {
+		return textArea;
 	}
-	public JTextPane getTextPane_1() {
-		return textPane_1;
-	}
+
 }

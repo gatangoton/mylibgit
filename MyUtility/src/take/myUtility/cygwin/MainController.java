@@ -30,16 +30,16 @@ public class MainController implements ActionListener{
 				case '\n':	sb.append("\n");
 							sb1.append(ch1);
 							break;
-				case '\t':	
+				case '\t':
 				default :	sb.append(" ");
 							sb1.append(ch1);
 							sb1.append("  ");
 				}
-				
-				
+
+
 			}
-			mf.getTextPane().setText(sb.toString());
-			mf.getTextPane_1().setText(sb1.toString());
+			mf.getTextArea().setText(sb.toString());
+			mf.getTextArea_1().setText(sb1.toString());
 			fis.close();
 
 		} catch (FileNotFoundException e1) {

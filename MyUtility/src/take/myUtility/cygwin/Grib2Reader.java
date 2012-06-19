@@ -6,9 +6,10 @@ public class Grib2Reader {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Grib2MainController mc = null;
 		try {
 
-			Grib2MainController mc = new Grib2MainController();
+			mc = new Grib2MainController();
 			Grib2MainFrame mf = new Grib2MainFrame(mc);
 			mc.setMf(mf);
 
@@ -16,6 +17,8 @@ public class Grib2Reader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//System.out.println(mc.getGrib2().toString());
 
 	}
 
