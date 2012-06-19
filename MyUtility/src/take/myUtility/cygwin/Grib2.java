@@ -1,56 +1,58 @@
 package take.myUtility.cygwin;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.TreeMap;
+import java.util.Comparator;
+import java.util.TreeSet;
 
-public class Grib2 {
+public class Grib2 implements Comparator<Section>{
 	String fileName;
-	TreeMap<Integer, Section> sections;
+	TreeSet<Section> sections;
 
-	public Grib2(String s) throws Exception{
-		fileName = s;
-		sections = new TreeMap<Integer, Section>();
+	public Grib2(String fn) throws Exception{
+		fileName = fn;
+		sections = new TreeSet<Section>(this);
 		BufferedInputStream bis = null;
 		byte[] d, head;
 		long pos = 1;
 		int nor;
+		Section s, ps, ts;
 
 		try{
 			bis = new BufferedInputStream(new FileInputStream(fileName));
 
+			//Section 0 作成
 			bis.read(d = new byte[16]);
-			sections.put(new Integer((int)pos), Section.createSection(d));
+			sections.add(Section.createSection(d, pos));
 			pos += 16;
 
+			//Section 1-8 作成
 			do{
 				bis.mark(5);
 				bis.read(head = new byte[5]);
 				bis.reset();
 
-				nor = Section.numberOfRead(head);
-				bis.read(d = new byte[Section.numberOfRead(head)]);
-				sections.put(new Integer((int)pos), Section.createSection(d));
-				if(Section.sectionNo(head) == 7){
-					for(long lo = Section.sectionLength(head) - Section.numberOfRead(head); lo > 0; lo--){
+				bis.read(d = new byte[nor = Section.numberOfRead(head)]);
+				sections.add(s = Section.createSection(d, pos));
+				if(s.sectionNo() == 7){	//section7のデータ部は空読み
+					for(long lo = s.sectionLength() - nor; lo > 0; lo--){
 						bis.read();
 					}
 				}
-				pos += Section.sectionLength(head);
+
+				ps = s;
+				do{			//一つ前のsectionを探す
+					ts = ps;
+					ps = sections.lower(ts);
+				}while(ps.sectionNo() >= s.sectionNo());
+				ps.addChild(s);
+				s.setParent(ps);
+
+				pos += s.sectionLength();
 			}while(Section.sectionNo(head) != 8);
-			
 
-			//System.out.println(this.toString());
-
-			/*
-System.out.println(sections.size() + "           " + pos);
-Section0 s0 = ((Section0)sections.get(1));
-Section s1 = ((Section)sections.get(17));
-System.out.println(s0.toString() + s1.toString());
-*/
 		} catch(FileNotFoundException e1){
 			throw new Exception("(FileNotFoundException");
 		} catch(IOException e2){
@@ -66,15 +68,17 @@ System.out.println(s0.toString() + s1.toString());
 
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
-		for(Integer i : sections.navigableKeySet()){
-			Section sec = sections.get(i);
-			if(sec != null){
-				sb.append(i.toString() + ":" + sections.get(i).toString());
-			}
+		for(Section s : sections){
+			sb.append(s.getPosition() + ":" + s.toString());
 		}
 		return sb.toString();
-	
 	}
+
+	@Override
+	public int compare(Section o1, Section o2) {
+		return (int)(o1.getPosition() - o2.getPosition());
+	}
+
 	/**
 	 * 8bitのならび4つ（32bit）をlongに合成する。intにすると補数をとってしまうため、longにする。
 	 * @param d

@@ -2,8 +2,8 @@ package take.myUtility.cygwin;
 
 public class Section1 extends Section {
 
-	public Section1(byte[] b) throws Exception{
-		super(b);
+	public Section1(byte[] b, long pos) throws Exception{
+		super(b, pos);
 
 		if(	(b[4] != 1) ||		//section 1
 			(codeTableC1(getOctetValue(6,7)).equals("not supported")) || //Tokyo

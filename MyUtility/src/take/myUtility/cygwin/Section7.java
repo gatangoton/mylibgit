@@ -2,8 +2,8 @@ package take.myUtility.cygwin;
 
 public class Section7 extends Section {
 
-	public Section7(byte b[]) throws Exception {
-		super(b);
+	public Section7(byte b[], long pos) throws Exception {
+		super(b, pos);
 
 		if ((getOctetValue(5) != 7) // section 7
 		) {

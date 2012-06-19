@@ -17,9 +17,6 @@ public class Grib2Reader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		//System.out.println(mc.getGrib2().toString());
-
 	}
 
 }

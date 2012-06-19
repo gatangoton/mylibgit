@@ -2,8 +2,8 @@ package take.myUtility.cygwin;
 
 public class Section0 extends Section {
 
-	public Section0(byte[] b) throws Exception{
-		super(b);
+	public Section0(byte[] b, long pos) throws Exception{
+		super(b, pos);
 
 		if((b.length != 16)||
 			(b[0] != 0x47)||		//'G'
@@ -39,7 +39,7 @@ public class Section0 extends Section {
 	@Override
 	public String toString() {
 		String retVal = "----section 0----\n" +
-			"1-4:GRIB\t\tGRIB\n" +
+			"1-4:GRIB\t\t'GRIB'\n" +
 			"5-6:" + String.format("%#06X", getOctetValue(5, 6)) + "\t\tReserved\n" +
 			"7:" + getOctetValue(7) + "\t\tDiscipline = Meteorological products\n" +
 			"9-16:" + totalLength() + "\t\tTotal Length of GRIB message in octets\n";

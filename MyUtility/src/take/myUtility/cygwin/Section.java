@@ -1,28 +1,37 @@
 package take.myUtility.cygwin;
 
-public abstract class Section {
-	private byte[] data;
+import java.util.HashSet;
 
-	public static Section createSection(byte data[]) throws Exception{
+
+public abstract class Section{
+	private byte[] data;
+	private long position;
+	private Section parent;
+	private HashSet<Section> children;
+
+	public static Section createSection(byte data[], long pos) throws Exception{
 		Section retVal = null;
 
 		switch(Section.sectionNo(data)){
-		case 0:	retVal = new Section0(data); break;
-		case 1: retVal = new Section1(data); break;
-		//case 2: retVal = new Section2(data); break;
-		case 3: retVal = new Section3(data); break;
-		case 4: retVal = new Section4(data); break;
-		case 5: retVal = new Section5(data); break;
-		case 6: retVal = new Section6(data); break;
-		case 7: retVal = new Section7(data); break;
-		case 8: retVal = new Section8(data); break;
+		case 0:	retVal = new Section0(data, pos); break;
+		case 1: retVal = new Section1(data, pos); break;
+		//case 2: retVal = new Section2(data, pos); break;
+		case 3: retVal = new Section3(data, pos); break;
+		case 4: retVal = new Section4(data, pos); break;
+		case 5: retVal = new Section5(data, pos); break;
+		case 6: retVal = new Section6(data, pos); break;
+		case 7: retVal = new Section7(data, pos); break;
+		case 8: retVal = new Section8(data, pos); break;
 		}
 
 		return retVal;
 	}
 
-	public Section(byte[] b){
+	public Section(byte[] b, long pos){
 		data = b;
+		position = pos;
+		parent = null;
+		children = new HashSet<Section>();
 	}
 
 	public byte[] getData(){
@@ -118,9 +127,14 @@ public abstract class Section {
 	public static int numberOfRead(byte[] b){
 		int retVal = -1;
 
-		if (sectionNo(b) == 7){
+		switch (sectionNo(b)){
+		case 7:
 			retVal = 5;
-		}else{
+			break;
+		case 8:
+			retVal = 4;
+			break;
+		default:
 			retVal = sectionLength(b);
 		}
 
@@ -207,5 +221,25 @@ public abstract class Section {
 		a7 = ((long)(d[7] & 0xff));
 
 		return a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7;
+	}
+
+	public long getPosition() {
+		return position;
+	}
+
+	public Section getParent() {
+		return parent;
+	}
+
+	public void setParent(Section parent) {
+		this.parent = parent;
+	}
+
+	public HashSet<Section> getChildren() {
+		return children;
+	}
+
+	public void addChild(Section c) {
+		this.children.add(c);
 	}
 }

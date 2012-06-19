@@ -2,8 +2,8 @@ package take.myUtility.cygwin;
 
 public class Section3 extends Section {
 
-	public Section3(byte[] b) throws Exception{
-		super(b);
+	public Section3(byte[] b, long pos) throws Exception{
+		super(b, pos);
 
 		if(	(getOctetValue(5) != 3) ||		//section 3
 			(codeTable30(getOctetValue(6)).equals("not supported")) ||  //Source of grid definition
@@ -21,7 +21,7 @@ public class Section3 extends Section {
 				((byte)getOctetValue(21) != (byte)0xff) ||
 				(getOctetValue(22, 25) !=  0xffffffffL) ||
 				((byte)getOctetValue(26) != (byte)0xff) ||
-				(getOctetValue(27, 30) !=  0xffffffffL) 
+				(getOctetValue(27, 30) !=  0xffffffffL)
 
 
 					){
@@ -63,16 +63,16 @@ public class Section3 extends Section {
 		"31-34:" + getOctetValue(31, 34) + "\t\tnumber of points along a parallel\n" +
 		"35-38:" + getOctetValue(35, 38) + "\t\tnumber of points along a meridian\n" +
 		"39-42:" + getOctetValue(39, 42) + "\t\tBasic angle of the initial production domain\n" +
-		"43-46:" + String.format("%#010X", getOctetValue(43, 46)) + "\tSubdivisions of basic angle used to define extreme longitudes and latitudes, and direction increments\n" +		
+		"43-46:" + String.format("%#010X", getOctetValue(43, 46)) + "\tSubdivisions of basic angle used to define extreme longitudes and latitudes, and direction increments\n" +
 		"47-50:" + getOctetValue(47, 50) + "\tLa1 - latitude of first grid point\n" +
-		"51-54:" + getOctetValue(51, 54) + "\tLo1 - longitude of first grid point\n" +		
+		"51-54:" + getOctetValue(51, 54) + "\tLo1 - longitude of first grid point\n" +
 		"55:" + (l2 = getOctetValue(55)) + "\t\tResolution and component flags = " + flagTable33(l2) + "\n" +
 		"56-59:" + getOctetValue(56, 59) + "\tLa2 - latitude of last grid point\n" +
 		"60-63:" + getOctetValue(60, 63) + "\tLo2 - longitude of last grid point\n" +
 		"64-67:" + getOctetValue(64, 67) + "\t\tDi - i direction increment\n" +
 		"68-71:" + getOctetValue(68, 71) + "\t\tDj - j direction increment\n" +
 		"72:" + (l3 = getOctetValue(72)) + "\t\tScanning mode = " + flagTable34(l3) + "\n";
-		
+
 		;
 		;
 
@@ -114,7 +114,7 @@ public class Section3 extends Section {
 	private String flagTable33(long i){
 		//String retVal = "not supported";
 		String bit3 = "", bit4 = "", bit5 = "";
-		
+
 		if((i & 0x20L) == 0){
 			bit3 = "i direction increments not given";
 		}else{
@@ -130,11 +130,11 @@ public class Section3 extends Section {
 		}else{
 			bit5 = "Resolved u- and v- components of vector quantities relative to the defined grid in the direction of increasing x and y (or i and j) coordinates respectively";
 		}
-		
+
 		return bit3 + "\n\t\t\t\t" + bit4 + "\n\t\t\t\t" + bit5;
 		/*
 		Flag Table 3.3: Resolution and Component Flags
-		
+
 		Number	Value	Meaning
 		1-2				Reserved
 		3		0 		i direction increments not given
@@ -144,15 +144,15 @@ public class Section3 extends Section {
 		5		0		Resolved u- and v- components of vector quantities relative to easterly and northerly directions
 				1		Resolved u- and v- components of vector quantities relative to the defined grid in the direction of increasing x and y (or i and j) coordinates respectively
 		6-8				Reserved - set to zero
-		
+
 		(Bit Number 12345678)
 		*/
 	}
-	
+
 	private String flagTable34(long i){
 		//String retVal = "not supported";
 		String bit1 = "", bit2 = "", bit3 = "", bit4 = "";
-		
+
 		if((i & 0x80L) == 0){
 			bit1 = "Points of first row or column scan in the +i (+x) direction";
 		}else{
@@ -173,7 +173,7 @@ public class Section3 extends Section {
 		}else{
 			bit4 = "Adjacent rows scan in opposite directions";
 		}
-		
+
 		return bit1 + "\n\t\t\t" + bit2 + "\n\t\t\t" + bit3 + "\n\t\t\t" + bit4;
 		/*
 		Flag Table 3.4: Scanning Mode
@@ -191,7 +191,7 @@ public class Section3 extends Section {
 			(1) i direction: west to east along a parallel or left to right along an X-axis
 			(2) j direction: south to north along a meridian, or bottom to top along a Y-axis
 			(3) If bit number 4 is set, the first row scan is as defined by previous flags
-					
+
 		(Bit Number 12345678)
 		*/
 	}
