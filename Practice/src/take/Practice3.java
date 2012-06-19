@@ -15,13 +15,13 @@ public class Practice3 {
 
 		//byte[] d = {(byte)0xff,(byte)0xff,(byte)0xff,(byte)0xff};
 		//System.out.println(String.format("%1$d",connect4(d)));
-		
+
 		byte b = -1;
 		int i = 0x3F000000;
 		System.out.println(String.format("%#010x",i));
-		float f = 0xFFFFFFFF;
+
 		System.out.println(Float.intBitsToFloat(i));
-		
+
 	}
 
 	private static long connect4(byte d[]){
