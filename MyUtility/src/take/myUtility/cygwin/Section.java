@@ -2,6 +2,8 @@ package take.myUtility.cygwin;
 
 import java.util.HashSet;
 
+import take.myUtility.grib2.Section8;
+
 
 public abstract class Section{
 	private byte[] data;

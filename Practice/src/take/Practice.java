@@ -26,7 +26,7 @@ public class Practice {
 		System.out.println(UnitString.convertTo("NM", "ft*m"));
 		*/
 
-		ProcessBuilder pb = new ProcessBuilder("bash","a.sh");
+		ProcessBuilder pb = new ProcessBuilder("bash","c.sh");
 		Process p=null;
 		File f=new File("c:\\cygwin\\home\\taketo\\temp");
 		pb.directory(f);
