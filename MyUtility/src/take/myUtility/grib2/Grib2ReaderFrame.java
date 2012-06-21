@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
-public class Grib2MainFrame extends JFrame {
-	private Grib2MainController mc;
+public class Grib2ReaderFrame extends JFrame {
+	private Grib2ReaderController mc;
 
 	private JPanel contentPane;
 	private JTextField txtCcygwinhometaketotemptestgribbin;
@@ -23,7 +23,7 @@ public class Grib2MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Grib2MainFrame(Grib2MainController mc) {
+	public Grib2ReaderFrame(Grib2ReaderController mc) {
 		this.mc = mc;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +72,7 @@ public class Grib2MainFrame extends JFrame {
 
 	}
 
-	public void setMc(Grib2MainController mc) {
+	public void setMc(Grib2ReaderController mc) {
 		this.mc = mc;
 	}
 

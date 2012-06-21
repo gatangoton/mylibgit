@@ -3,15 +3,15 @@ package take.myUtility.grib2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Grib2MainController implements ActionListener{
-	private Grib2MainFrame mf;
+public class Grib2ReaderController implements ActionListener{
+	private Grib2ReaderFrame mf;
 	private Grib2 g2;
 
-	public Grib2MainController(){
+	public Grib2ReaderController(){
 
 	}
 
-	public void setMf(Grib2MainFrame mf) {
+	public void setMf(Grib2ReaderFrame mf) {
 		this.mf = mf;
 	}
 

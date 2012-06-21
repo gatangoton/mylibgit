@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame {
-	private MainController mc;
+public class ReadBinFrame extends JFrame {
+	private ReadBinController mc;
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(MainController mc) {
+	public ReadBinFrame(ReadBinController mc) {
 		this.mc = mc;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(textArea_1);
 	}
 
-	public void setMc(MainController mc) {
+	public void setMc(ReadBinController mc) {
 		this.mc = mc;
 	}
 
@@ -83,7 +83,7 @@ public class MainFrame extends JFrame {
 		return textField;
 	}
 
-	public MainController getMc() {
+	public ReadBinController getMc() {
 		return mc;
 	}
 

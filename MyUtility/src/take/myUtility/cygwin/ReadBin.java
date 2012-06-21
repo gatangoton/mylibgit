@@ -8,8 +8,8 @@ public class ReadBin {
 	public static void main(String[] args) {
 		try {
 
-			MainController mc = new MainController();
-			MainFrame mf = new MainFrame(mc);
+			ReadBinController mc = new ReadBinController();
+			ReadBinFrame mf = new ReadBinFrame(mc);
 			mc.setMf(mf);
 
 			mf.setVisible(true);

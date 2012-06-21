@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class MainController implements ActionListener{
-	private MainFrame mf;
+public class ReadBinController implements ActionListener{
+	private ReadBinFrame mf;
 
-	public MainController(){
+	public ReadBinController(){
 
 	}
 
-	public void setMf(MainFrame mf) {
+	public void setMf(ReadBinFrame mf) {
 		this.mf = mf;
 	}
 
