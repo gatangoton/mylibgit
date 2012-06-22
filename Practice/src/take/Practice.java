@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+
+
 import take.mylib.unit.UnitString;
 
 public class Practice {
@@ -15,21 +17,12 @@ public class Practice {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		/*
-		System.out.println("Hello world");
 
-		UnitString us = new UnitString((""));
-		UnitString us1 = new UnitString(("kt"));
-		UnitString us2 = new UnitString(("m/s"));
-
-		System.out.println(UnitString.convertTo(3000, "psi", "atm"));
-		System.out.println(UnitString.convertTo("NM", "ft*m"));
-		*/
-
-		ProcessBuilder pb = new ProcessBuilder("bash","c.sh");
+		ProcessBuilder pb = new ProcessBuilder("bash","d.sh");
 		Process p=null;
 		File f=new File("c:\\cygwin\\home\\taketo\\temp");
 		pb.directory(f);
+		/*
 		System.out.println(f);
 		System.out.println("--------------------------------------");
 		Map <String, String> m = pb.environment();
@@ -38,15 +31,20 @@ public class Practice {
 		}
 		System.out.println("--------------------------------------");
 		pb.redirectErrorStream(true);
+		*/
 		try{
-			p = pb.start();
+			//p = pb.start();
+			p=Runtime.getRuntime().exec(new String[] {"bash", "c:\\cygwin\\home\\taketo\\temp\\d.sh"});
 
 		InputStream in = p.getInputStream();
 		//InputStream in2 = p.getErrorStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String s;
-		while((s=br.readLine()) != null){
+		int c,i=0;
+		while((s = br.readLine()) != null){
+			//System.out.println(i + ":" + String.format("%X", c));i++;
 			System.out.println(s);
+
 			//while (in2.read() != -1){}
 		}
 
