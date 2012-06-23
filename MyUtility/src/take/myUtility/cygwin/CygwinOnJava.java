@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Observer;
 
+import take.mylib.ErrInformerClass;
+
 /**
  *  コマンドライン、主にCygwinの操作を目的としたクラス。<br>
  *
@@ -16,7 +18,7 @@ import java.util.Observer;
  * @author taketo
  *
  */
-public class CygwinOnJava implements Runnable{
+public class CygwinOnJava extends ErrInformerClass implements Runnable{
 	private String currentDir;
 	private ProcessBuilder pb;
 	private BufferedReaderRunnable stdOutBrr, stdErrBrr;
@@ -51,21 +53,21 @@ public class CygwinOnJava implements Runnable{
 			stdOutTh.join();
 			stdErrTh.join();
 		} catch (IOException e) {
-			System.out.println("err exit");
+			this.errOccured(e, "unable to start ProcessBuilder");
 		} catch (InterruptedException e) {
-			System.out.println("err exit");
-
+			this.errOccured(e, "unable to join Thread(stdOut or stdErr)");
 		}finally{
 			try {
 				p.getErrorStream().close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				this.errOccured(e, "unable to close ErrorStream");
 			}
 
 	        try {
 				p.getOutputStream().close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				this.errOccured(e, "unable to close OutputStream");
+
 			}
 			p.destroy();
 		}

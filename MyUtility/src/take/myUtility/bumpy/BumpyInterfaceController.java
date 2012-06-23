@@ -7,8 +7,10 @@ import java.util.Observer;
 
 import take.myUtility.cygwin.BufferedReaderRunnable;
 import take.myUtility.cygwin.CygwinOnJava;
+import take.mylib.ErrInformee;
 
-public class BumpyInterfaceController implements ActionListener, Observer{
+public class BumpyInterfaceController implements ActionListener, Observer, ErrInformee{
+	public static final String curdir = "c:\\cygwin\\home\\taketo\\temp";
 
 	private BumpyInterfaceFrame bif;
 
@@ -18,9 +20,10 @@ public class BumpyInterfaceController implements ActionListener, Observer{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(bif.getCommandText());
-		CygwinOnJava cyg = new CygwinOnJava(this, "c:\\cygwin\\home\\taketo\\temp");
-		cyg.command("bash", "d.sh");
+		CygwinOnJava cyg = new CygwinOnJava(this, curdir);
+		//cyg.command("bash", "d.sh");
+		cyg.addErrInformee(this);
+		cyg.command(bif.getCommandText());
 	}
 
 	@Override
@@ -35,5 +38,11 @@ public class BumpyInterfaceController implements ActionListener, Observer{
 		}
 
 
+	}
+
+	@Override
+	public void errOccured(Exception e, Object o, String msg) {
+		bif.getPanelErr().setText(
+			o.toString() + ":" + msg + "\n" + e.toString() + "\n");
 	}
 }
